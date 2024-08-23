@@ -1,7 +1,8 @@
 
 # JParse - Easy JSON Parsing
 
-JParse is a small, [fast](https://github.com/nats-io/jparse/wiki#is-jparse-fast), and compliant JSON parser that implements events parsing and index overlay.
+JParse mini, [fast](https://github.com/nats-io/jparse/wiki#is-jparse-fast), and compliant JSON parser that implements events parsing and index overlay.
+It is based on JParse but removes the event parser and function table support.
 
 # Goals
 
@@ -11,52 +12,38 @@ Fastest, most compliant and smallest JSON parser lib for the JVM, and it is deve
 
 Apache 2.
 
-
-# What is JParse?
-[JParse](https://github.com/nats-io/jparse/wiki#why-jparse) is an innovative JSON parser for JVM that offers lightning-fast parsing speeds through an index overlay
-mechanism. JParse is the most efficient, [fastest](https://github.com/nats-io/jparse/wiki#is-jparse-fast), and developer-friendly JSON parser available for the JVM.
-This makes it ideal for processing massive data sets, building complex data pipelines or simply for a faster
-and more efficient way to parse JSON data.
-
-JParse is a *JSON parser* plus a small subset of *JSONPath*.
-
-
-
+# Changes
+* Got rid of event parser
+* Got rid of func table parser 
+* We only kept the IndexOverlay parser which is the fastest for the most common use cases. 
+* Removed Thread Local and Static members from Json to simplify development, now you have to use a builder.
+* There is no longer support for comments 
 
 ## Using JParse
+
+This should work with JParse mini but JParse mini is a subset of JParse so your results may vary. 
 
 This is a [short guide on how to use JParse](https://github.com/nats-io/jparse/wiki#using-jparse).
 ([Go to the wiki for a longer guide on how to use JParse](https://github.com/nats-io/jparse/wiki#using-jparse).)
 
 ### Maven
 
-JParse has no dependencies except the JVM itself.
+JParse mini has no dependencies except the JVM itself.
 
-```xml
-<!-- See for latest version https://mvnrepository.com/artifact/io.nats/jparse -->
-<dependency>
-    <groupId>io.nats</groupId>
-    <artifactId>jparse</artifactId>
-    <version>1.2.0</version>
-</dependency>
-
-```
+TBD
 
 ### Gradle
 
-```gradle
-//See for latest version  https://mvnrepository.com/artifact/io.nats/jparse
-implementation group: 'io.nats', name: 'jparse', version: '1.2.3'
-
-```
+TBD
 
 
 ### Reading JSON from a File
 
-```java
-final File file = new File("./src/test/resources/json/depts.json");
-final var rootNode = Json.toRootNode(Sources.fileSource(file));
-```
+TBD
+
+
+## Using JParse mini
+This has not been updated for JParse mini yet. 
 
 ### Extracting Specific Data
 
