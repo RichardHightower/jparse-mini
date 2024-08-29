@@ -17,9 +17,7 @@ package io.nats.jparse;
 
 import io.nats.jparse.node.RootNode;
 import io.nats.jparse.parser.JsonParser;
-import io.nats.jparse.source.CharSource;
 import io.nats.jparse.token.Token;
-import io.nats.jparse.token.TokenEventListener;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -32,19 +30,7 @@ public class ValidateGarbageJsonTest {
         return Json.builder().setStrict(true).build();
     }
 
-    public JsonParser jsonEventParser() {
-        return Json.builder().setStrict(true).setTokenEventListener(new TokenEventListener() {
-            @Override
-            public void start(int tokenId, int index, CharSource source) {
 
-            }
-
-            @Override
-            public void end(int tokenId, int index, CharSource source) {
-
-            }
-        }).setStrict(true).build();
-    }
 
     /*
      *
@@ -67,41 +53,12 @@ public class ValidateGarbageJsonTest {
 
     }
 
-    @Test
-    void letterAfterCloseStringEvent() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................0123
-        final String json = "''x";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-
-    }
 
     /*
          PASS! ./src/test/resources/validation/n_object_with_trailing_garbage.json
 
      */
 
-    @Test
-    void junkAfterMapEvents() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................01234567890
-        final String json = "{'a':'b'}#";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     @Test
     void junkAfterMap() {
@@ -121,20 +78,7 @@ public class ValidateGarbageJsonTest {
     /*
      */
 
-    @Test
-    void extraBracketAfterArrayEvents() {
-        final JsonParser parser = jsonEventParser();
 
-        //...................01234567890
-        final String json = "[1]]";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     @Test
     void extraBracketAfterArray() {
@@ -156,20 +100,6 @@ public class ValidateGarbageJsonTest {
      */
 
 
-    @Test
-    void extraBracketAfterNumberEvents() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................01234567890
-        final String json = "1]";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     @Test
     void extraBracketAfterNumber() {
@@ -201,37 +131,9 @@ public class ValidateGarbageJsonTest {
         }
     }
 
-    @Test
-    void trailingCommaInObjectEvents() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................01234567890
-        final String json = "{'id':0, }";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     //
 
-    @Test
-    void arrayNoCommaEvents() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................01234567890
-        final String json = "[1 true]";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     @Test
     void arrayNoComma() {
@@ -248,20 +150,7 @@ public class ValidateGarbageJsonTest {
         }
     }
 
-    @Test
-    void arrayTrailingCommaEvent() {
-        final JsonParser parser = jsonEventParser();
 
-        //...................01234567890
-        final String json = "[1,]";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
 
     @Test
     void arrayTrailingComma() {
@@ -269,21 +158,6 @@ public class ValidateGarbageJsonTest {
 
         //...................01234567890
         final String json = "[1,]";
-        try {
-            final List<Token> tokens = parser.scan(Json.niceJson(json));
-            System.out.println(tokens);
-            assertTrue(false);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    @Test
-    void arrayTrailingCommaAfterStringEvent() {
-        final JsonParser parser = jsonEventParser();
-
-        //...................01234567890
-        final String json = "['',]";
         try {
             final List<Token> tokens = parser.scan(Json.niceJson(json));
             System.out.println(tokens);
