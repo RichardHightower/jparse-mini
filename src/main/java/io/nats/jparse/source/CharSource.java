@@ -29,7 +29,6 @@ import java.math.BigInteger;
  * provide a consistent interface for working with those sources during JSON parsing.
  *
  * @see Sources
- * @see io.nats.jparse.token.TokenEventListener
  * @see io.nats.jparse.parser.JsonParser
  */
 public interface CharSource {
