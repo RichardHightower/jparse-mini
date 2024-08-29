@@ -15,12 +15,6 @@
  */
 package io.nats.jparse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jsoniter.JsonIterator;
-import com.jsoniter.output.JsonStream;
-import io.nats.jparse.node.ObjectNode;
-import io.nats.jparse.node.RootNode;
-import io.nats.jparse.parser.JsonEventParser;
 import io.nats.jparse.parser.JsonParser;
 import io.nats.jparse.source.Sources;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,7 +26,6 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +36,8 @@ public class BenchMark {
 
     JsonParser fastParser = Json.builder().setStrict(false).build();
 
-    JsonParser funcParser = Json.builder().setAllowComments(true)
-            .setObjectsKeysCanBeEncoded(false)
-            .setSupportNoQuoteKeys(false).build();
-
     JsonParser strictParser = Json.builder().setStrict(true).build();
-    JsonEventParser fastEventParser =  Json.builder().setStrict(false).buildEventParser();
-    JsonEventParser strictEventParser =  Json.builder().setStrict(true).buildEventParser();
+
 
 
 

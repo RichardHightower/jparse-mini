@@ -17,7 +17,6 @@ package io.nats.jparse;
 
 
 import io.nats.jparse.node.*;
-import io.nats.jparse.parser.JsonEventParser;
 import io.nats.jparse.parser.JsonParser;
 import io.nats.jparse.source.Sources;
 import io.nats.jparse.token.Token;
@@ -398,11 +397,6 @@ class JsonParserTest {
     void test_empty_object() {
 
         final JsonParser parser = jsonParser();
-
-        if (parser instanceof JsonEventParser) {
-            //TODO see why this fails for event parser
-            return;
-        }
         final String json = "{}";
         final RootNode jsonRoot = parser.parse(niceJson(json));
 

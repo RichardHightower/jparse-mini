@@ -37,54 +37,13 @@ public class Json {
     private Json() {
     }
 
-    private static final AtomicReference<JsonParserBuilder> builderRef =
-            new AtomicReference<>(new JsonParserBuilder().setStrict(false));
-    /**
-     * The `JsonParser` used by the `Json` class for parsing JSON data.
-     */
-    private static final JsonParser PARSER = builder().build();
-
-    /** Environment variable for turning on strict parse support. */
-    public static String J_PARSE_JSON_STRICT = "J_PARSE_JSON_STRICT";
-
-    /** Environment variable for turning off keys can be encoded parse support. */
-    public static String J_OBJECT_KEY_CAN_BE_ENCODED = "J_OBJECT_KEY_CAN_BE_ENCODED";
-
-    static {
-        try {
-            final String strStrict = System.getenv(J_PARSE_JSON_STRICT);
-            if (strStrict != null) {
-                if (strStrict.equalsIgnoreCase("false")) {
-                    builderRef.set(builderRef.get().cloneBuilder()
-                            .setStrict(false));
-                } else {
-                    builderRef.set(builderRef.get().cloneBuilder()
-                            .setStrict(true));
-                }
-            }
-
-            final String strObjectsKeysCanBeEncoded = System.getenv(J_OBJECT_KEY_CAN_BE_ENCODED);
-            if (strObjectsKeysCanBeEncoded != null) {
-                if (strObjectsKeysCanBeEncoded.equalsIgnoreCase("false")) {
-                    builderRef.set(builderRef.get().cloneBuilder()
-                            .setObjectsKeysCanBeEncoded(false));
-                } else {
-                    builderRef.set(builderRef.get().cloneBuilder()
-                            .setObjectsKeysCanBeEncoded(true));
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     /**
      * Returns a new `JsonParserBuilder` instance, which can be used to configure and create `JsonParser` instances.
      *
      * @return A new `JsonParserBuilder` instance
      */
     public static JsonParserBuilder builder() {
-        return builderRef.get().cloneBuilder();
+        return new JsonParserBuilder();
     }
 
     /**
@@ -115,7 +74,7 @@ public class Json {
      * @return An `ArrayNode` representing the parsed JSON data
      */
     public static ArrayNode toArrayNode(final String json) {
-        return PARSER.parse(json).getArrayNode();
+        return new JsonParserBuilder().build().parse(json).getArrayNode();
     }
 
     /**
@@ -125,7 +84,7 @@ public class Json {
      * @return An `ObjectNode` representing the parsed JSON data
      */
     public static ObjectNode toObjectNode(final String json) {
-        return PARSER.parse(json).getObjectNode();
+        return new JsonParserBuilder().build().parse(json).getObjectNode();
     }
 
     /**
@@ -135,7 +94,7 @@ public class Json {
      * @return A `RootNode` representing the parsed JSON data
      */
     public static RootNode toRootNode(final String json) {
-        return PARSER.parse(json);
+        return new JsonParserBuilder().build().parse(json);
     }
 
     /**
@@ -165,7 +124,7 @@ public class Json {
      * @return A `List` of `Token`s representing the scanned JSON data
      */
     public static List<Token> toTokens(final String json) {
-        return PARSER.scan(json);
+        return new JsonParserBuilder().build().scan(json);
     }
 
     /**
@@ -175,7 +134,7 @@ public class Json {
      * @return An `ArrayNode` representing the parsed JSON data
      */
     public static ArrayNode toArrayNode(final CharSource json) {
-        return PARSER.parse(json).getArrayNode();
+        return new JsonParserBuilder().build().parse(json).getArrayNode();
     }
 
     /**
@@ -185,7 +144,7 @@ public class Json {
      * @return An `ObjectNode` representing the parsed JSON data
      */
     public static ObjectNode toObjectNode(final CharSource json) {
-        return PARSER.parse(json).getObjectNode();
+        return new JsonParserBuilder().build().parse(json).getObjectNode();
     }
 
     /**
@@ -195,7 +154,7 @@ public class Json {
      * @return A `RootNode` representing the parsed JSON data
      */
     public static RootNode toRootNode(final CharSource json) {
-        return PARSER.parse(json);
+        return new JsonParserBuilder().build().parse(json);
     }
 
     /**
@@ -205,7 +164,7 @@ public class Json {
      * @return A `List` of `Object`s representing the parsed JSON data
      */
     public static List<Object> toList(final CharSource json) {
-        return (List<Object>) (Object) PARSER.parse(json).getArrayNode();
+        return (List<Object>) (Object) new JsonParserBuilder().build().parse(json).getArrayNode();
     }
 
     /**
@@ -215,7 +174,7 @@ public class Json {
      * @return A `Map` of `String`s to `Object`s representing the parsed JSON data
      */
     public static Map<String, Object> toMap(final CharSource json) {
-        return (Map<String, Object>) (Object) PARSER.parse(json).getObjectNode();
+        return (Map<String, Object>) (Object) new JsonParserBuilder().build().parse(json).getObjectNode();
     }
 
     /**
@@ -225,7 +184,7 @@ public class Json {
      * @return A `List` of `Token`s representing the scanned JSON data
      */
     public static List<Token> toTokens(final CharSource json) {
-        return PARSER.scan(json);
+        return new JsonParserBuilder().build().scan(json);
     }
 
 

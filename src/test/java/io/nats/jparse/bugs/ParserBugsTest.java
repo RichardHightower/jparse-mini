@@ -6,11 +6,10 @@ import io.nats.jparse.node.Node;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParserBugs {
+public class ParserBugsTest {
 
     @Test
     void issue16() {
